@@ -18,7 +18,7 @@ The project uses the U.S. Department of Education's College Scorecard API to acq
 
 
 
-1. Which college major categories have the highest median earnings?
+1\. Which college major categories have the highest median earnings?
 
 
 
