@@ -1,0 +1,1 @@
+Sitemap: https://takato-byu.github.io/data_acquisition_blog/sitemap.xml

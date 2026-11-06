@@ -1,0 +1,72 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Does Your College Major Matter?",
+    "section": "",
+    "text": "Does your college major affect how much money you earn after graduation? This is an important question for students deciding what to study. Although personal interests and career goals matter, understanding potential earnings can help students make more informed decisions.\nFor this project, I used the U.S. Department of Education’s College Scorecard API to investigate two questions:\n\nHow do median earnings differ across college majors?\nHow do these differences vary between public and private nonprofit universities?\n\nMy goal was not only to explore these questions but also to practice acquiring real-world data through an API, cleaning it, and creating an original dataset for analysis."
+  },
+  {
+    "objectID": "index.html#introduction",
+    "href": "index.html#introduction",
+    "title": "Does Your College Major Matter?",
+    "section": "",
+    "text": "Does your college major affect how much money you earn after graduation? This is an important question for students deciding what to study. Although personal interests and career goals matter, understanding potential earnings can help students make more informed decisions.\nFor this project, I used the U.S. Department of Education’s College Scorecard API to investigate two questions:\n\nHow do median earnings differ across college majors?\nHow do these differences vary between public and private nonprofit universities?\n\nMy goal was not only to explore these questions but also to practice acquiring real-world data through an API, cleaning it, and creating an original dataset for analysis."
+  },
+  {
+    "objectID": "index.html#getting-data-from-the-college-scorecard-api",
+    "href": "index.html#getting-data-from-the-college-scorecard-api",
+    "title": "Does Your College Major Matter?",
+    "section": "Getting Data from the College Scorecard API",
+    "text": "Getting Data from the College Scorecard API\nThe College Scorecard provides information about U.S. colleges, including institutional characteristics, academic programs, and graduate earnings.\nI accessed the data using Python’s requests library. Instead of downloading a ready-made dataset, I sent API requests and extracted information from nested JSON responses.\nFor example, the API returns program-level information inside each institution’s record. I used Python loops to extract university names, academic majors, degree levels, institutional types, and median earnings four years after completion.\nThe acquisition script requested 20 pages of data, with up to 20 institutions per page. After extracting bachelor’s degree programs, I obtained 5,507 program observations from 175 universities.\nThis process demonstrated how an API can provide structured information while still requiring substantial data transformation."
+  },
+  {
+    "objectID": "index.html#cleaning-and-transforming-the-data",
+    "href": "index.html#cleaning-and-transforming-the-data",
+    "title": "Does Your College Major Matter?",
+    "section": "Cleaning and Transforming the Data",
+    "text": "Cleaning and Transforming the Data\nThe raw dataset needed additional processing before analysis.\nFirst, I restricted the sample to public and private nonprofit universities. I excluded for-profit institutions to focus on the two institutional categories in my research question.\nSecond, I retained programs with available institution-specific median earnings four years after completion. Many programs had missing earnings values, potentially because of reporting limitations or data suppression.\nThird, I used the Classification of Instructional Programs (CIP) codes to group individual majors into broader categories such as Engineering, Computer Science, Business, and Psychology.\nFinally, I created two additional variables: the difference between institutional and national median earnings and the ratio of institutional to national earnings.\nThe resulting dataset contained 2,369 observations, 122 universities, and 13 variables.\nThis transformation created a dataset specifically designed to answer my research questions."
+  },
+  {
+    "objectID": "index.html#finding-1-earnings-differ-substantially-across-majors",
+    "href": "index.html#finding-1-earnings-differ-substantially-across-majors",
+    "title": "Does Your College Major Matter?",
+    "section": "Finding 1: Earnings Differ Substantially Across Majors",
+    "text": "Finding 1: Earnings Differ Substantially Across Majors\n\n\n\nMedian program earnings by major category\n\n\nEngineering had the highest median program earnings at $97,656, followed by Computer Science at $92,014.\nMathematics ($71,317), Physical Sciences ($71,084), and Business ($70,025) also ranked relatively high.\nIn contrast, Visual and Performing Arts had the lowest median among the categories analyzed, at $43,758. Education ($49,080) and English ($49,297.50) also had comparatively lower values.\nThe difference between Engineering and Visual and Performing Arts was approximately $53,898.\nThese results suggest that academic field is strongly associated with differences in reported program earnings in this sample.\nHowever, the analysis compares program-level median earnings, not individual graduates. It does not establish that choosing a particular major causes higher earnings."
+  },
+  {
+    "objectID": "index.html#finding-2-private-nonprofit-programs-generally-report-higher-earnings",
+    "href": "index.html#finding-2-private-nonprofit-programs-generally-report-higher-earnings",
+    "title": "Does Your College Major Matter?",
+    "section": "Finding 2: Private Nonprofit Programs Generally Report Higher Earnings",
+    "text": "Finding 2: Private Nonprofit Programs Generally Report Higher Earnings\nAcross all programs, the median was $62,886 for private nonprofit universities and $59,041.50 for public universities.\nThis represents a difference of approximately $3,845, or 6.5% relative to the public university median.\nHowever, the overall difference may reflect variations in the types of majors offered, university characteristics, or geographic location.\nTo investigate this further, I compared public and private nonprofit universities within each major category.\n\n\n\nMedian program earnings by major category and institution type\n\n\nIn 13 of the 14 categories, private nonprofit programs had higher median earnings. However, the private nonprofit groups for Mathematics and Physical Sciences each contained only one observation, making those comparisons especially unreliable."
+  },
+  {
+    "objectID": "index.html#finding-3-engineering-is-an-interesting-exception",
+    "href": "index.html#finding-3-engineering-is-an-interesting-exception",
+    "title": "Does Your College Major Matter?",
+    "section": "Finding 3: Engineering Is an Interesting Exception",
+    "text": "Finding 3: Engineering Is an Interesting Exception\nEngineering showed a different pattern.\nPublic university Engineering programs had median earnings of $97,790, compared with $96,418.50 for private nonprofit programs.\nThe difference was approximately $1,372 in favor of public universities.\nMeanwhile, Health Professions showed a much larger difference in the opposite direction: $79,062 for private nonprofit programs versus $65,961 for public programs.\nThese findings demonstrate why comparing institutions within academic fields can reveal patterns that are hidden in overall averages."
+  },
+  {
+    "objectID": "index.html#limitations-and-ethical-considerations",
+    "href": "index.html#limitations-and-ethical-considerations",
+    "title": "Does Your College Major Matter?",
+    "section": "Limitations and Ethical Considerations",
+    "text": "Limitations and Ethical Considerations\nThis analysis has several important limitations.\nFirst, I collected data from the first 20 API result pages rather than selecting a nationally representative random sample. Therefore, these findings should not be generalized to every U.S. university.\nSecond, a substantial number of programs lacked institution-specific earnings data. Excluding these programs may introduce selection bias, particularly if missingness is related to program size or other characteristics.\nThird, the analysis treats every program equally, regardless of its number of graduates. Consequently, the reported summaries are not estimates of the median earnings of all graduates.\nFinally, these comparisons do not control for factors such as student background, university selectivity, geographic location, or prior academic achievement.\nFrom an ethical perspective, I used publicly available aggregate data rather than individual student records. I also kept the API key outside the repository and documented the limitations to avoid misleading interpretations."
+  },
+  {
+    "objectID": "index.html#conclusion",
+    "href": "index.html#conclusion",
+    "title": "Does Your College Major Matter?",
+    "section": "Conclusion",
+    "text": "Conclusion\nThis project showed me how to transform API responses into a dataset suitable for statistical exploration.\nEngineering and Computer Science had the highest median program earnings in the sample, while private nonprofit universities generally showed higher earnings than public universities. However, Engineering provided an important exception.\nThe most valuable lesson was that collecting data is only the beginning. Understanding missing values, selecting appropriate comparisons, and communicating limitations are essential parts of responsible data science.\nFuture research could use a broader sample of universities and statistical models that account for institutional and geographic differences."
+  },
+  {
+    "objectID": "index.html#resources",
+    "href": "index.html#resources",
+    "title": "Does Your College Major Matter?",
+    "section": "Resources",
+    "text": "Resources\n\nCollege Scorecard Data\nCollege Scorecard API\nProject GitHub Repository"
+  }
+]
