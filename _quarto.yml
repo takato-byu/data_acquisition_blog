@@ -1,0 +1,21 @@
+
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "College Major and Graduate Earnings"
+  site-url: "https://takato-byu.github.io/data_acquisition_blog/"
+  navbar:
+    left:
+      - text: "Blog"
+        href: index.qmd
+      - text: "GitHub Repository"
+        href: https://github.com/takato-byu/data_acquisition_blog
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-fold: true
+    code-tools: true
