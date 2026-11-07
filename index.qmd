@@ -15,7 +15,6 @@ For this project, I used the U.S. Department of Education's College Scorecard AP
 1. How do median earnings differ across college majors?
 2. How do these differences vary between public and private nonprofit universities?
 
-My goal was not only to explore these questions but also to practice acquiring real-world data through an API, cleaning it, and creating an original dataset for analysis.
 
 ## Getting Data from the College Scorecard API
 
@@ -27,7 +26,6 @@ For example, the API returns program-level information inside each institution's
 
 The acquisition script requested 20 pages of data, with up to 20 institutions per page. After extracting bachelor's degree programs, I obtained **5,507 program observations from 175 universities**.
 
-This process demonstrated how an API can provide structured information while still requiring substantial data transformation.
 
 ## Cleaning and Transforming the Data
 
@@ -43,7 +41,6 @@ Finally, I created two additional variables: the difference between institutiona
 
 The resulting dataset contained **2,369 observations, 122 universities, and 13 variables**.
 
-This transformation created a dataset specifically designed to answer my research questions.
 
 ## Finding 1: Earnings Differ Substantially Across Majors
 
@@ -102,8 +99,6 @@ Finally, these comparisons do not control for factors such as student background
 From an ethical perspective, I used publicly available aggregate data rather than individual student records. I also kept the API key outside the repository and documented the limitations to avoid misleading interpretations.
 
 ## Conclusion
-
-This project showed me how to transform API responses into a dataset suitable for statistical exploration.
 
 Engineering and Computer Science had the highest median program earnings in the sample, while private nonprofit universities generally showed higher earnings than public universities. However, Engineering provided an important exception.
 
