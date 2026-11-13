@@ -111,6 +111,7 @@ print("\nEDA complete!")
 print("Three figures saved to figures/")
 
 
+
 # ------------------------------------
 # 4. Earnings by major and institution type
 # ------------------------------------
@@ -125,8 +126,12 @@ comparison = (
 print("\nEARNINGS BY MAJOR AND INSTITUTION TYPE")
 print(comparison.to_string(index=False))
 
-# Visualize public vs. private within majors
-plt.figure(figsize=(12, 8))
+# Use consistent category and institution ordering
+major_order = major_summary.index.tolist()
+type_order = sorted(df["institution_type"].dropna().unique())
+
+# Create grouped horizontal bar chart
+fig, ax = plt.subplots(figsize=(14, 9))
 
 sns.barplot(
     data=df,
@@ -135,13 +140,43 @@ sns.barplot(
     hue="institution_type",
     estimator="median",
     errorbar=None,
-    order=major_summary.index
+    order=major_order,
+    hue_order=type_order,
+    ax=ax
 )
 
-plt.title("Median Program Earnings by Major and Institution Type")
-plt.xlabel("Median Earnings 4 Years After Completion (USD)")
-plt.ylabel("Major Category")
-plt.legend(title="Institution Type")
+# Add sample size labels (n) to each bar
+for container, institution_type in zip(ax.containers, type_order):
+
+    counts = (
+        comparison[comparison["institution_type"] == institution_type]
+        .set_index("major_category")["count"]
+        .reindex(major_order)
+    )
+
+    labels = [
+        f"n={int(n)}" if pd.notna(n) and n > 0 else ""
+        for n in counts
+    ]
+
+    ax.bar_label(
+        container,
+        labels=labels,
+        label_type="edge",
+        padding=3,
+        fontsize=8
+    )
+
+# Add extra space for labels
+ax.set_xlim(0, df["median_earnings_4yr"].max() * 1.15)
+
+ax.set_title(
+    "Median Program Earnings by Major and Institution Type"
+)
+ax.set_xlabel("Median Earnings 4 Years After Completion (USD)")
+ax.set_ylabel("Major Category")
+ax.legend(title="Institution Type")
+
 plt.tight_layout()
 
 plt.savefig(
@@ -149,6 +184,7 @@ plt.savefig(
     dpi=300,
     bbox_inches="tight"
 )
+
 plt.close()
 
-print("\nFourth figure saved!")
+print("\nFourth figure saved with sample sizes!")
