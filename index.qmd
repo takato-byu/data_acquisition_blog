@@ -72,6 +72,8 @@ To investigate this further, I compared public and private nonprofit universitie
 
 In 13 of the 14 categories, private nonprofit programs had higher median earnings. However, the private nonprofit groups for Mathematics and Physical Sciences each contained only one observation, making those comparisons especially unreliable.
 
+To make these comparisons more transparent, I added sample sizes (n) to the visualization. The sample sizes represent the number of university-major program observations in each group, not the number of individual graduates. Some categories have substantially fewer observations than others, so their median earnings may be more sensitive to individual programs. This is especially important when interpreting differences between public and private nonprofit universities.
+
 ## Finding 3: Engineering Is an Interesting Exception
 
 Engineering showed a different pattern.
