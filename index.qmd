@@ -1,3 +1,4 @@
+
 ---
 title: "Does Your College Major Matter?"
 subtitle: "Exploring Graduate Earnings with the College Scorecard API"
@@ -15,7 +16,6 @@ For this project, I used the U.S. Department of Education's College Scorecard AP
 1. How do median earnings differ across college majors?
 2. How do these differences vary between public and private nonprofit universities?
 
-
 ## Getting Data from the College Scorecard API
 
 The [College Scorecard](https://collegescorecard.ed.gov/data/) provides information about U.S. colleges, including institutional characteristics, academic programs, and graduate earnings.
@@ -26,6 +26,7 @@ For example, the API returns program-level information inside each institution's
 
 The acquisition script requested 20 pages of data, with up to 20 institutions per page. After extracting bachelor's degree programs, I obtained **5,507 program observations from 175 universities**.
 
+I limited the API requests to the first 20 pages to keep the data collection process manageable. However, these pages were not randomly selected, and the API's default ordering may have influenced which institutions were included. As a result, the dataset represents a convenience sample rather than a nationally representative sample of U.S. universities.
 
 ## Cleaning and Transforming the Data
 
@@ -35,12 +36,36 @@ First, I restricted the sample to public and private nonprofit universities. I e
 
 Second, I retained programs with available institution-specific median earnings four years after completion. Many programs had missing earnings values, potentially because of reporting limitations or data suppression.
 
-Third, I used the Classification of Instructional Programs (CIP) codes to group individual majors into broader categories such as Engineering, Computer Science, Business, and Psychology.
+Third, I used the Classification of Instructional Programs (CIP) codes to group individual majors into 14 broader categories, including Engineering, Computer Science, Business, and Psychology.
+
+The following Python example illustrates how two-digit CIP codes can be mapped to broader major categories. For simplicity, only five categories are shown here; the full mapping is available in the GitHub repository.
+
+```{python}
+#| eval: false
+#| echo: true
+
+# Example: mapping two-digit CIP codes to major categories
+cip_category_map = {
+    "11": "Computer Science",
+    "14": "Engineering",
+    "26": "Biological Sciences",
+    "42": "Psychology",
+    "52": "Business"
+}
+
+# Assumes df["cip2"] contains two-digit CIP codes
+df["major_category"] = (
+    df["cip2"]
+    .astype(str)
+    .str.zfill(2)
+    .map(cip_category_map)
+    .fillna("Other")
+)
+```
 
 Finally, I created two additional variables: the difference between institutional and national median earnings and the ratio of institutional to national earnings.
 
 The resulting dataset contained **2,369 observations, 122 universities, and 13 variables**.
-
 
 ## Finding 1: Earnings Differ Substantially Across Majors
 
@@ -69,6 +94,8 @@ However, the overall difference may reflect variations in the types of majors of
 To investigate this further, I compared public and private nonprofit universities within each major category.
 
 ![Median program earnings by major category and institution type](figures/earnings_by_major_and_type.png)
+
+The sample sizes displayed next to each bar represent the number of university-major program observations used to calculate the corresponding median. These counts are important because some comparisons are based on substantially fewer programs than others.
 
 In 13 of the 14 categories, private nonprofit programs had higher median earnings. However, the private nonprofit groups for Mathematics and Physical Sciences each contained only one observation, making those comparisons especially unreliable.
 
